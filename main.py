@@ -1,11 +1,14 @@
 import logging
 import sys
+from pathlib import Path
 
 # Asegurar codificación UTF-8 en consolas Windows
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
+
+BASE_DIR = Path(__file__).resolve().parent
 from telegram import Update
 from telegram.ext import (
     ApplicationBuilder,
@@ -15,7 +18,7 @@ from telegram.ext import (
     ContextTypes
 )
 
-from config import TELEGRAM_BOT_TOKEN, PORT, HOST, DATABASE_URL, APP_URL
+from config import TELEGRAM_BOT_TOKEN, PORT, HOST, DATABASE_URL, APP_URL, BASE_DIR
 from database import init_db, get_db_cursor, is_postgres
 from handlers.basic import start_handler, help_handler
 from handlers.transactions import (
